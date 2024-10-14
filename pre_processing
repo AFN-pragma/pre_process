@@ -1,0 +1,41 @@
+import pandas as pd
+import setuptools.dist
+from sklearn.preprocessing import LabelEncoder
+
+data_df = pd.read_csv('STEG_BILLING_HISTORY.csv')
+ 
+client_0_bills = data_df.iloc[0:11]
+print(client_0_bills)
+print(type(client_0_bills))
+
+print('________________________________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+print(data_df.info()) #rows and columns in this dataset=4476749;16 columns/categorial=4/memory 546.5+ MB
+
+print('______________________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+print(data_df.isnull().sum())
+
+print('_____________________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+#Pour la question 5: nous avons 2 colonnes avec des valeurs manquante
+#avec counter_number nous allons remplacer les valeurs manquantes par la moyen car c'est des données numerical
+#pareillement pour la colonne reading_remarque
+
+description = data_df.describe()
+print(description)
+print('_____________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+first_method = data_df.iloc[0:35]
+second_method = data_df.query("client_id == 'train_Client_0'")
+print(first_method)
+print(second_method)
+print('_____________________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+encoder = LabelEncoder()
+data_df['counter_type'] = encoder.fit_transform(data_df['counter_type'])
+print(data_df)
+print('_____________________________________________________________________________________________________________________________________________________________________________________________________________________')
+
+C = data_df.drop('counter_type', axis = 1)
+print(C)
